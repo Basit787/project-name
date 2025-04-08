@@ -9,7 +9,4 @@ export class CreateUserDto {
 
   @IsEmail()
   email: string;
-
-  @IsBoolean()
-  isActive: boolean;
 }

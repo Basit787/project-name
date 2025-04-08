@@ -9,7 +9,7 @@ import { UsersModule } from './users/users.module';
     TypeOrmModule.forRoot({
       type: 'postgres',
       url: process.env.DATABASE_URL,
-      entities: ['/../**/*.entity{.ts,.js}'],
+      autoLoadEntities: true,
       synchronize: false,
     }),
     PostsModule,
