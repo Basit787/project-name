@@ -28,7 +28,6 @@ export class UsersService {
   async findAll(): Promise<User[]> {
     try {
       const data = await this.usersRepository.find();
-      console.log(data);
       return data;
     } catch (error) {
       throw new BadRequestException({ error });
@@ -47,15 +46,32 @@ export class UsersService {
   }
 
   async update(id: number, updateUserDto: UpdateUserDto) {
-    return `This action updates a #${id} user`;
+    try {
+      const data = await this.usersRepository.update(
+        { id },
+        { ...updateUserDto },
+      );
+      if (data.affected === 0)
+        throw new BadRequestException({ message: 'Failed to update user' });
+      return {
+        message: `User updated successfully with id ${id}`,
+        data: updateUserDto,
+      };
+    } catch (error) {
+      throw new BadRequestException({ error });
+    }
   }
 
   async remove(id: number) {
     try {
+      const getUser = await this.usersRepository.findOneBy({ id });
       const data = await this.usersRepository.delete(id);
       if (data.affected === 0)
-        throw new NotFoundException({ message: 'user not found' });
-      return { message: `user Deleted successfully with id ${id}` };
+        throw new NotFoundException({ message: 'Failed to delete user' });
+      return {
+        message: `user Deleted successfully with id ${id}`,
+        data: getUser,
+      };
     } catch (error) {
       throw new BadRequestException({ error });
     }
