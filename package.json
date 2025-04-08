@@ -19,7 +19,10 @@
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./test/jest-e2e.json",
     "mig:gen": "knex migrate:make",
-    "mig:run": "knex migrate:latest"
+    "mig:run": "knex migrate:latest",
+    "mig:up": "knex migrate:up",
+    "mig:undo": "knex migrate:down",
+    "mig:list": "knex migrate:list"
   },
   "dependencies": {
     "@nestjs/common": "^11.0.1",
