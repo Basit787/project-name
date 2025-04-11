@@ -5,7 +5,6 @@ import {
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { User } from './entities/user.entity';
 
@@ -15,15 +14,6 @@ export class UsersService {
     @InjectRepository(User)
     private usersRepository: Repository<User>,
   ) {}
-
-  async create(createUserDto: CreateUserDto): Promise<User> {
-    try {
-      const user = this.usersRepository.create(createUserDto);
-      return await this.usersRepository.save(user);
-    } catch (error) {
-      throw new BadRequestException({ message: 'Eror', error });
-    }
-  }
 
   async findAll(): Promise<User[]> {
     try {

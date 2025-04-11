@@ -6,8 +6,9 @@ import {
   MinLength,
 } from 'class-validator';
 
-export class CreateUserDto {
+export class CreateAuthDto {
   @IsString()
+  @MinLength(2, { message: 'Min 2 char are required' })
   name: string;
 
   @IsNumber()
@@ -23,5 +24,3 @@ export class CreateUserDto {
   @IsOptional()
   role: string;
 }
-
-export type UserRoleType = 'admin' | 'user';
